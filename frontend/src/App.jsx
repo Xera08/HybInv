@@ -21,7 +21,7 @@ function App() {
         </nav>
 
         {/* Контент сторінок */}
-        <main style={{ padding: '20px' }}>
+        <main style={{ padding: '20px', width: '100%', boxSizing: 'border-box' }}>
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/history" element={<History />} />
@@ -53,8 +53,11 @@ const linkStyle = {
 
 const layoutStyle = {
   minHeight: '100vh',
+  width: '100%',
   backgroundColor: '#0f172a',
-  color: '#fff'
+  color: '#fff',
+  display: 'flex',
+  flexDirection: 'column'
 };
 
 const logoStyle = { color: '#00ff88', fontSize: '24px', fontWeight: 'bold' };
