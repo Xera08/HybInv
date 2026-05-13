@@ -1,5 +1,3 @@
-// backend/services/controlLogic.js
-
 class ControlLogic {
     constructor() {
         this.mode = 'SBU'; // Дефолтний режим: SBU (Solar → Battery → Utility)
@@ -53,7 +51,7 @@ class ControlLogic {
         };
     }
 
-    // --- ДОПОМІЖНІ МЕТОДИ ---
+    // === Допоміжні методи ===
     _getBatteryColor(soc) {
         if (soc <= this.thresholds.critical) return '#ef4444';      // Червоний
         if (soc <= this.thresholds.warning) return '#f97316';       // Помаранчевий
@@ -75,84 +73,76 @@ class ControlLogic {
         return 99; // Нульове навантаження
     }
 
-    // === SUB MODE: Solar → Utility → Battery ===
+    // Режим SUB: Сонце > Мережа > Батарея (батарея - тільки резерв)
     _calculateSUB(battery_soc, pv_power, load_power, status) {
-        // Пріоритет: Сонце > Мережа > Батарея (батарея - тільки резерв)
+        
         if (pv_power >= load_power) {
-            return 'PV'; // Сонце покриває навантаження
+            return 'PV';
         }
-        // Якщо сонця недостатньо, використовуємо мережу
         return 'GRID';
     }
 
     _getStatusSUB(source, battery_soc, pv_power, load_power) {
         if (source === 'PV') {
-            return `☀️ Живлення від сонця (${pv_power}W)`;
+            return `Живлення від сонця`;
         }
-        return `🔌 Живлення від мережі (батарея: ${battery_soc}%)`;
+        return `Живлення від мережі (батарея: ${battery_soc}%)`;
     }
 
-    // === SBU MODE: Solar → Battery → Utility (Maximum Autonomy) ===
+    // Режим SBU: Сонце > Батарея > Мережа (макс автономність)
     _calculateSBU(battery_soc, pv_power, load_power) {
-        // Гістеризація: ВХІД в GRID при <55%, ВИХІД при >=75%
         if (battery_soc < this.thresholds.lowBattery) {
             this.inGRIDMode = true;
-            return 'GRID'; // Батарея критично низька
+            return 'GRID';
         }
 
         if (this.inGRIDMode && battery_soc >= this.thresholds.safeToLeaveGRID) {
             this.inGRIDMode = false;
-            // Вихід з GRID режиму
         }
 
-        // Якщо вже в GRID режимі, залишаємося там поки не досягнемо 75%
         if (this.inGRIDMode) {
             return 'GRID';
         }
 
-        // НЕ в GRID режимі, батарея безпечна (55-100%)
         if (pv_power >= load_power) {
-            return 'PV'; // Сонце живить і заряджає батарею
+            return 'PV'; 
         }
 
-        // Сонця недостатньо: використовуємо батарею
         return 'BATTERY';
     }
 
     _getStatusSBU(source, battery_soc, pv_power, load_power) {
         switch(source) {
             case 'PV':
-                return `☀️ Живлення від сонця + зарядка АКБ (${pv_power}W)`;
+                return `Живлення від сонця + зарядка АКБ`;
             case 'BATTERY':
-                return `🔋 Розряд з батареї (${battery_soc}%)`;
+                return `Живлення від батареї`;
             case 'GRID':
                 if (battery_soc < this.thresholds.lowBattery) {
-                    return `🔴 Критичний заряд (${battery_soc}%): примусовий GRID режим`;
+                    return `Критичний заряд (${battery_soc}%)`;
                 }
-                return `🔌 Восстановлення заряду від мережи (${battery_soc}%, чекаємо 75%)`;
+                return `Зарядка батареї. Живлення від мережі`;
             default:
                 return 'Оптимальна робота';
         }
     }
 
-    // === USB MODE: Utility → Solar → Battery (UPS/Emergency) ===
+    // Режим USB: Мережа > Сонце > Батарея (тримає батарею на випадок блекауту)
     _calculateUSB(battery_soc, pv_power, load_power) {
-        // Пріоритет: Мережа > Сонце/Батарея
-        // Батарея завжди заряджається від мережи і використовується як резерв
         if (battery_soc < this.thresholds.upsFullCharge) {
-            return 'GRID'; // Мережа живить навантаження + заряджає батарею
+            return 'GRID';
         }
-        return 'GRID'; // Мережа - завжди основне джерело в UPS режимі
+        return 'GRID';
     }
 
     _getStatusUSB(source, battery_soc) {
-        return `🔌 UPS MODE: Мережа активна (батарея резерв: ${battery_soc}%)`;
+        return `Режим UPS: Живлення від мережі`;
     }
 
     setMode(newMode) {
         if (['SUB', 'SBU', 'USB'].includes(newMode)) {
             this.mode = newMode;
-            this.inGRIDMode = false; // Скидуємо флаг при зміні режиму
+            this.inGRIDMode = false; 
             console.log(`⚡ Режим змінено на: ${newMode}`);
             return true;
         }
@@ -160,14 +150,7 @@ class ControlLogic {
         return false;
     }
 
-    setPriority(newPriority) {
-        // Для сумісності зі старим кодом
-        if (['BATTERY', 'UPS', 'MANUAL'].includes(newPriority)) {
-            this.priorities = newPriority;
-            return true;
-        }
-        return false;
-    }
+
 }
 
 module.exports = new ControlLogic();

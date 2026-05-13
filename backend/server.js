@@ -12,7 +12,6 @@ const simulator = require('./services/dataSimulator');
 // Шлях до файлу налаштувань
 const settingsFilePath = path.resolve(__dirname, 'settings.json');
 
-// Функція для завантаження налаштувань з файлу
 const loadSettings = () => {
     try {
         if (fs.existsSync(settingsFilePath)) {
@@ -34,8 +33,7 @@ const loadSettings = () => {
         mode: 'SBU'
     };
 };
-// 22
-// Функція для збереження налаштувань у файл
+
 const saveSettings = (settings) => {
     try {
         fs.writeFileSync(settingsFilePath, JSON.stringify(settings, null, 2), 'utf-8');
@@ -47,12 +45,10 @@ const saveSettings = (settings) => {
 
 let currentSettings = loadSettings();
 
-// ✅ Передаємо завантажені налаштування в контролер логіку при старті
 if (currentSettings.mode) {
     controlLogic.setMode(currentSettings.mode);
 }
 
-// ✅ Передаємо завантажені мультиплікатори в симулятор при старті
 simulator.updateParams({
     pvMultiplier: currentSettings.pvMultiplier,
     loadMultiplier: currentSettings.loadMultiplier
@@ -98,10 +94,8 @@ function startProcessingLoop() {
 
         const decision = controlLogic.calculate(rawData);
         
-        // Оновлюємо батарею на основі режиму живлення
         simulator.updateBatteryState(decision.activeSource, rawData.pv_power, rawData.load_power);
         
-        // Отримуємо оновлені дані батареї
         const updatedRawData = simulator.generateStep();
         const fullData = { ...updatedRawData, control: decision };
 
@@ -115,7 +109,6 @@ function startProcessingLoop() {
     }, currentSettings.updateInterval);
 }
 
-// Запускаємо при старті сервера
 startProcessingLoop();
 
 // API endpoints 
@@ -146,7 +139,6 @@ app.get('/api/history', (req, res) => {
     const minutes = parseInt(req.query.minutes) || 30;
     console.log('📊 API /history requested with minutes:', req.query.minutes, 'Parsed as:', minutes);
     
-    // Обчислюємо дату N хвилин тому на JavaScript
     const cutoffTime = new Date(Date.now() - minutes * 60 * 1000).toISOString();
     console.log('📊 Current time:', new Date().toISOString(), 'Cutoff time:', cutoffTime);
     
@@ -181,10 +173,8 @@ app.post('/api/settings', express.json(), (req, res) => {
         }
     }
 
-    // Зберігаємо налаштування у файл
     saveSettings(currentSettings);
 
-    // Передаємо нові коефіцієнти в симулятор
     simulator.updateParams({
         pvMultiplier: currentSettings.pvMultiplier,
         loadMultiplier: currentSettings.loadMultiplier

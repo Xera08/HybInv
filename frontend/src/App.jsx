@@ -1,10 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
-// Імпортуємо сторінки (створимо їх нижче)
 import Dashboard from './pages/Dashboard.jsx';
 import History from './pages/History.jsx';
- import Settings from './pages/Settings.jsx'; // Додамо для майбутнього керування
+import Settings from './pages/Settings.jsx'; 
 
 function App() {
   return (

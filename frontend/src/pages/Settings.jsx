@@ -29,7 +29,6 @@ const Settings = () => {
         }
     };
 
-    // Універсальний обробник для кнопок-множників
     const handleMultiplierChange = (type, value) => {
         const updated = { ...settings, [type]: value };
         saveSettings(updated);
@@ -39,7 +38,7 @@ const Settings = () => {
         <div style={{ color: '#f8fafc', animation: 'fadeIn 0.5s ease' }}>
             <h2 style={{ color: '#94a3b8', marginBottom: '30px' }}>Налаштування системи</h2>
 
-            {/* 1. ДЖЕРЕЛО ДАНИХ */}
+            {/* ВИБІР ДЖЕРЕЛА ДАНИХ */}
             <div style={settingsCard}>
                 <h3 style={sectionTitle}>Джерело даних</h3>
                 <div style={{ display: 'flex', gap: '15px' }}>
@@ -59,42 +58,7 @@ const Settings = () => {
                 <p style={hint}>Поточний режим: <b>{settings.dataSource === 'simulation' ? 'Симуляція' : 'Пряме підключення'}</b></p>
             </div>
 
-            {/* 2. РЕЖИМ ЖИВЛЕННЯ */}
-            <div style={settingsCard}>
-                <h3 style={sectionTitle}>Режим живлення енергосистеми</h3>
-                <p style={hint}>Виберіть пріоритет використання енергії:</p>
-                <div style={{ display: 'flex', gap: '10px', marginTop: '10px', flexWrap: 'wrap' }}>
-                    <button 
-                        onClick={() => saveSettings({ ...settings, mode: 'SUB' })}
-                        style={modeOptionBtn(settings.mode === 'SUB')}
-                        title="Solar → Utility → Battery: Найбільш економний режим"
-                    >
-                        SUB (☀️→🔌→🔋)
-                    </button>
-                    <button 
-                        onClick={() => saveSettings({ ...settings, mode: 'SBU' })}
-                        style={modeOptionBtn(settings.mode === 'SBU')}
-                        title="Solar → Battery → Utility: Максимальна автономність"
-                    >
-                        SBU (☀️→🔋→🔌)
-                    </button>
-                    <button 
-                        onClick={() => saveSettings({ ...settings, mode: 'USB' })}
-                        style={modeOptionBtn(settings.mode === 'USB')}
-                        title="Utility → Solar → Battery: UPS/аварійний режим"
-                    >
-                        USB/UPS (🔌→☀️→🔋)
-                    </button>
-                </div>
-                <p style={{ ...hint, marginTop: '15px' }}>
-                    <b>Поточний режим:</b><br/>
-                    {settings.mode === 'SUB' && '☀️ SUB: Сонце → Мережа → Батарея (економний)'}
-                    {settings.mode === 'SBU' && '🔋 SBU: Сонце → Батарея → Мережа (автономність)'}
-                    {settings.mode === 'USB' && '🔌 USB: Мережа → Сонце → Батарея (UPS)'}
-                </p>
-            </div>
-
-            {/* 3. ШВИДКІСТЬ (тільки для емуляції) */}
+            {/* ШВИДКІСТЬ */}
             {settings.dataSource === 'simulation' && (
                 <>
                     <div style={settingsCard}>
@@ -113,7 +77,7 @@ const Settings = () => {
                         </div>
                     </div>
 
-                    {/* 4. ПОТУЖНІСТЬ ПАНЕЛЕЙ */}
+                    {/* ПОТУЖНІСТЬ ПАНЕЛЕЙ */}
                     <div style={settingsCard}>
                         <h3 style={sectionTitle}>Потужність сонячних панелей</h3>
                         <div style={{ display: 'flex', gap: '10px', marginTop: '10px', flexWrap: 'wrap' }}>
@@ -129,7 +93,7 @@ const Settings = () => {
                         </div>
                     </div>
 
-                    {/* 5. СПОЖИВАННЯ */}
+                    {/* СПОЖИВАННЯ */}
                     <div style={settingsCard}>
                         <h3 style={sectionTitle}>Рівень споживання (Навантаження)</h3>
                         <div style={{ display: 'flex', gap: '10px', marginTop: '10px', flexWrap: 'wrap' }}>

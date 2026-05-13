@@ -1,6 +1,7 @@
 {
   "dataSource": "simulation",
-  "updateInterval": 5000,
+  "updateInterval": 2000,
   "pvMultiplier": 1,
-  "loadMultiplier": 1
+  "loadMultiplier": 10,
+  "mode": "SBU"
 }
