@@ -1,0 +1,6 @@
+{
+  "dataSource": "simulation",
+  "updateInterval": 5000,
+  "pvMultiplier": 1,
+  "loadMultiplier": 1
+}

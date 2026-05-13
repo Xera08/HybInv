@@ -1,80 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-const socket = io('http://localhost:3000');
+// Імпортуємо сторінки (створимо їх нижче)
+import Dashboard from './pages/Dashboard.jsx';
+import History from './pages/History.jsx';
+ import Settings from './pages/Settings.jsx'; // Додамо для майбутнього керування
 
 function App() {
-  const [telemetry, setTelemetry] = useState(null); // Поточні дані
-  const [history, setHistory] = useState([]);      // Історія з БД
-
-  useEffect(() => {
-    axios.get('http://localhost:3000/api/history')
-      .then(res => setHistory(res.data))
-      .catch(err => console.error("Помилка завантаження історії:", err));
-
-    socket.on('telemetry_update', (data) => {
-      setTelemetry(data);
-      // Додаємо нове значення в початок масиву історії (і видаляємо старе, якщо їх > 20)
-      setHistory(prev => [data, ...prev].slice(0, 20));
-    });
-
-    return () => socket.off('telemetry_update');
-  }, []);
-
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h1>Дашборд гібридного інвертора</h1>
+    <Router>
+      <div style={layoutStyle}>
+        {/* Навігаційна панель (Homebar) */}
+        <nav style={navStyle}>
+          <div style={logoStyle}>⚡ SmartEnergy</div>
+          <div style={linksContainer}>
+            <Link to="/" style={linkStyle}>Дашборд</Link>
+            <Link to="/history" style={linkStyle}>Історія</Link>
+            <Link to="/settings" style={linkStyle}>Налаштування</Link>
+          </div>
+        </nav>
 
-      {/* Дашборд (Живі дані) */}
-      <div style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
-        <div style={cardStyle}>
-          <h3>⚡ Сонячна потужність</h3>
-          <p>{telemetry ? `${telemetry.pv_power} W` : 'Завантаження...'}</p>
-        </div>
-        <div style={cardStyle}>
-          <h3>🔋 Заряд батареї</h3>
-          <p>{telemetry ? `${Math.floor(telemetry.battery_soc * 100 ) / 100} %` : 'Завантаження...'}</p>
-        </div>
-        <div style={cardStyle}>
-          <h3>🏠 Навантаження</h3>
-          <p>{telemetry ? `${telemetry.load_power} W` : 'Завантаження...'}</p>
-        </div>
+        {/* Контент сторінок */}
+        <main style={{ padding: '20px' }}>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </main>
       </div>
-
-      {/* Таблиця історії з БД */}
-      <h2>Останні записи з бази даних</h2>
-      <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th>Час</th>
-            <th>Сонце (W)</th>
-            <th>Батарея (%)</th>
-            <th>Мережа (V)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {history.map((item, index) => (
-            <tr key={index}>
-              <td>{new Date(item.timestamp).toLocaleTimeString()}</td>
-              <td>{item.pv_power}</td>
-              <td>{Math.floor(item.battery_soc * 100) / 100}</td>
-              <td>{item.grid_voltage}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    </Router>
   );
 }
 
-const cardStyle = {
-  border: '1px solid #ccc',
-  padding: '20px',
-  borderRadius: '8px',
-  flex: 1,
-  textAlign: 'center',
-  backgroundColor: '#f9f9f9'
+// Стилі для навігації
+const navStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '15px 40px',
+  backgroundColor: '#1e293b',
+  borderBottom: '1px solid #334155'
 };
+
+const linkStyle = {
+  color: '#94a3b8',
+  textDecoration: 'none',
+  marginLeft: '20px',
+  fontSize: '18px',
+  fontWeight: '500'
+};
+
+const layoutStyle = {
+  minHeight: '100vh',
+  backgroundColor: '#0f172a',
+  color: '#fff'
+};
+
+const logoStyle = { color: '#00ff88', fontSize: '24px', fontWeight: 'bold' };
+const linksContainer = { display: 'flex' };
 
 export default App;
