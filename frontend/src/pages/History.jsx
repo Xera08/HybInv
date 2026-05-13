@@ -32,9 +32,9 @@ const History = () => {
   }, [timeRange]);
 
   return (
-    <div style={{ animation: 'fadeIn 0.5s ease', color: '#f8fafc' }}>
+    <div style={{ animation: 'fadeIn 0.5s ease', color: '#1f2937' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <h2 style={{ margin: 0, color: '#94a3b8' }}>Архів телеметрії</h2>
+        <h2 style={{ margin: 0, color: '#666666' }}>Архів телеметрії</h2>
         
         {/* Панель фільтрації */}
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
@@ -53,7 +53,7 @@ const History = () => {
       </header>
       
       {loading ? (
-        <p style={{ color: '#64748b' }}>Завантаження бази даних...</p>
+        <p style={{ color: '#999999' }}>Завантаження бази даних...</p>
       ) : (
         <div style={tableContainer}>
           <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
@@ -82,7 +82,7 @@ const History = () => {
                   </tr>
                 )) : (
                   <tr>
-                    <td colSpan="6" style={{ textAlign: 'center', padding: '20px', color: '#64748b' }}>
+                    <td colSpan="6" style={{ textAlign: 'center', padding: '20px', color: '#999999' }}>
                       За вказаний період даних немає
                     </td>
                   </tr>
@@ -98,43 +98,44 @@ const History = () => {
 
 // Стилі
 const tableContainer = { 
-  backgroundColor: '#1e293b', 
+  backgroundColor: '#ffffff', 
   borderRadius: '15px', 
   overflow: 'hidden', 
-  border: '1px solid #334155' 
+  border: '1px solid #e5e7eb' 
 };
 
 const tableStyle = { width: '100%', borderCollapse: 'collapse', textAlign: 'left' };
 
-const headerStyle = { backgroundColor: '#0f172a', color: '#00ff88' };
+const headerStyle = { backgroundColor: '#f9f9f9', color: '#f59e0b', borderBottom: '2px solid #e5e7eb' };
 
-const thStyle = { padding: '15px', fontSize: '14px', borderBottom: '2px solid #334155' };
+const thStyle = { padding: '15px', fontSize: '14px', color: '#1f2937', fontWeight: '600', borderBottom: '2px solid #e5e7eb' };
 
-const tdStyle = { padding: '12px 15px', fontSize: '14px' };
+const tdStyle = { padding: '12px 15px', fontSize: '14px', color: '#4b5563' };
 
 const rowStyle = { 
-  borderBottom: '1px solid #334155',
+  borderBottom: '1px solid #e5e7eb',
   transition: 'background-color 0.2s',
-  ':hover': { backgroundColor: '#2d3748' } // Це спрацює, якщо додати через CSS, або залишити так
+  ':hover': { backgroundColor: '#f9f9f9' }
 };
 
 const selectStyle = { 
-  backgroundColor: '#1e293b', 
-  color: '#f8fafc', 
-  border: '1px solid #334155', 
+  backgroundColor: '#ffffff', 
+  color: '#1f2937', 
+  border: '1px solid #e5e7eb', 
   padding: '8px 12px', 
   borderRadius: '8px',
   outline: 'none'
 };
 
 const refreshBtn = {
-  backgroundColor: '#00ff88',
-  color: '#0f172a',
+  backgroundColor: '#f59e0b',
+  color: '#ffffff',
   border: 'none',
   padding: '8px 16px',
   borderRadius: '8px',
   cursor: 'pointer',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  transition: 'background-color 0.3s'
 };
 
 export default History;

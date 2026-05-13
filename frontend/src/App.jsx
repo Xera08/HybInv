@@ -37,28 +37,30 @@ const navStyle = {
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '15px 40px',
-  backgroundColor: '#1e293b',
-  borderBottom: '1px solid #334155'
+  backgroundColor: '#ffffff',
+  borderBottom: '1px solid #e5e7eb'
 };
 
 const linkStyle = {
-  color: '#94a3b8',
+  color: '#666666',
   textDecoration: 'none',
   marginLeft: '20px',
   fontSize: '18px',
-  fontWeight: '500'
+  fontWeight: '500',
+  transition: 'color 0.3s',
+  ':hover': { color: '#f59e0b' }
 };
 
 const layoutStyle = {
   minHeight: '100vh',
   width: '100%',
-  backgroundColor: '#0f172a',
-  color: '#fff',
+  backgroundColor: '#f9f9f9',
+  color: '#1f2937',
   display: 'flex',
   flexDirection: 'column'
 };
 
-const logoStyle = { color: '#00ff88', fontSize: '24px', fontWeight: 'bold' };
+const logoStyle = { color: '#f59e0b', fontSize: '24px', fontWeight: 'bold' };
 const linksContainer = { display: 'flex' };
 
 export default App;

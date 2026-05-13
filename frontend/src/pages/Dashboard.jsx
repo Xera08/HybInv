@@ -171,7 +171,7 @@ const Dashboard = () => {
     }, [timeRange]);
 
     return (
-        <div style={{ color: '#f8fafc', padding: '20px 0' }}>
+        <div style={{ color: '#1f2937', padding: '20px 0' }}>
             <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 40px' }}>
 
                 {/* Header з картками */}
@@ -338,26 +338,26 @@ const statsGrid = {
 };
 
 const mainStatusCard = {
-    backgroundColor: '#1e293b',
+    backgroundColor: '#ffffff',
     borderRadius: '16px',
     padding: '24px',
-    border: '1px solid #334155',
+    border: '1px solid #e5e7eb',
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+    boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
 };
 
 const miniChartContainer = {
     width: '320px',
-    backgroundColor: '#1e293b',
+    backgroundColor: '#ffffff',
     borderRadius: '16px',
     padding: '20px',
-    border: '1px solid #334155',
+    border: '1px solid #e5e7eb',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+    boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
 };
 
 const modeBtnLarge = (active) => ({
@@ -368,41 +368,41 @@ const modeBtnLarge = (active) => ({
     gap: '8px',
     padding: '12px',
     borderRadius: '10px',
-    border: active ? '2px solid #10b981' : '1px solid #334155',
+    border: active ? '2px solid #f59e0b' : '1px solid #e5e7eb',
     cursor: 'pointer',
-    backgroundColor: active ? 'rgba(16, 185, 129, 0.1)' : '#0f172a',
-    color: active ? '#10b981' : '#94a3b8',
+    backgroundColor: active ? 'rgba(245, 158, 11, 0.1)' : '#f5f5f5',
+    color: active ? '#f59e0b' : '#666666',
     transition: 'all 0.2s ease',
     fontWeight: 'bold',
     fontSize: '14px'
 });
-const cardStyle = { backgroundColor: '#1e293b', padding: '25px', borderRadius: '15px', border: '1px solid #334155' };
-const labelStyle = { color: '#94a3b8', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' };
-const valueStyle = { fontSize: '36px', fontWeight: '700', margin: '10px 0' };
-const progressContainer = { height: '6px', backgroundColor: '#0f172a', borderRadius: '3px', marginTop: '15px' };
-const progressBar = (soc, color) => ({ width: `${soc}%`, height: '100%', backgroundColor: color || (soc < 50 ? '#ef4444' : '#00ff88'), borderRadius: '3px', transition: 'width 0.5s ease, background-color 0.5s ease' });
-const chartCard = { backgroundColor: '#1e293b', padding: '30px', borderRadius: '15px', border: '1px solid #334155' };
+const cardStyle = { backgroundColor: '#ffffff', padding: '25px', borderRadius: '15px', border: '1px solid #e5e7eb' };
+const labelStyle = { color: '#999999', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' };
+const valueStyle = { fontSize: '36px', fontWeight: '700', margin: '10px 0', color: '#1f2937' };
+const progressContainer = { height: '6px', backgroundColor: '#e5e7eb', borderRadius: '3px', marginTop: '15px' };
+const progressBar = (soc, color) => ({ width: `${soc}%`, height: '100%', backgroundColor: color || (soc < 50 ? '#ef4444' : '#f59e0b'), borderRadius: '3px', transition: 'width 0.5s ease, background-color 0.5s ease' });
+const chartCard = { backgroundColor: '#ffffff', padding: '30px', borderRadius: '15px', border: '1px solid #e5e7eb' };
 const modeBtn = (active) => ({
-    padding: '8px 12px', borderRadius: '6px', border: '1px solid #334155', cursor: 'pointer',
-    backgroundColor: active ? '#10b981' : '#0f172a', color: active ? '#fff' : '#94a3b8',
+    padding: '8px 12px', borderRadius: '6px', border: '1px solid #e5e7eb', cursor: 'pointer',
+    backgroundColor: active ? '#f59e0b' : '#f5f5f5', color: active ? '#fff' : '#666666',
     transition: 'all 0.3s', fontWeight: 'bold', fontSize: '12px'
 });
-const selectStyle = { backgroundColor: '#1e293b', color: '#94a3b8', border: '1px solid #334155', padding: '5px 10px', borderRadius: '6px', cursor: 'pointer' };
+const selectStyle = { backgroundColor: '#ffffff', color: '#1f2937', border: '1px solid #e5e7eb', padding: '5px 10px', borderRadius: '6px', cursor: 'pointer' };
 
 const tooltipStyle = {
     position: 'absolute',
     top: '120%',
     left: '50%',
     transform: 'translateX(-50%)',
-    backgroundColor: '#0f172a',
-    border: '2px solid #10b981',
+    backgroundColor: '#ffffff',
+    border: '2px solid #f59e0b',
     borderRadius: '12px',
     padding: '15px',
     minWidth: '320px',
     maxWidth: '380px',
     zIndex: 1000,
-    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.8)',
-    color: '#f8fafc',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+    color: '#1f2937',
     fontSize: '13px',
     lineHeight: '1.5',
     animation: 'slideUp 0.2s ease-out',
@@ -415,30 +415,30 @@ const tooltipHeaderStyle = {
     fontSize: '15px',
     fontWeight: 'bold',
     marginBottom: '12px',
-    color: '#10b981'
+    color: '#f59e0b'
 };
 
 const tooltipContentStyle = {
-    color: '#e2e8f0'
+    color: '#4b5563'
 };
 
 const tooltipDescStyle = {
     margin: '0 0 10px 0',
-    color: '#cbd5e1',
+    color: '#666666',
     fontSize: '12px'
 };
 
 const tooltipPriorityStyle = {
     marginBottom: '6px',
     paddingLeft: '8px',
-    borderLeft: '3px solid #fbbf24',
-    color: '#f1f5f9',
+    borderLeft: '3px solid #f59e0b',
+    color: '#1f2937',
     fontSize: '12px'
 };
 
 const tooltipRecommendStyle = {
     margin: '6px 0 0 0',
-    color: '#cbd5e1',
+    color: '#666666',
     fontSize: '12px'
 };
 
