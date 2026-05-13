@@ -46,7 +46,7 @@ const Settings = () => {
                         onClick={() => saveSettings({ ...settings, dataSource: 'simulation' })}
                         style={toggleBtn(settings.dataSource === 'simulation')}
                     >
-                        Емуляція (Simulator)
+                        Симуляція
                     </button>
                     <button 
                         onClick={() => saveSettings({ ...settings, dataSource: 'real' })}

@@ -38,8 +38,8 @@ const ModeTooltip = ({ mode }) => {
             description: 'Режим для регіонів з частими відключеннями, де важливо завжди мати повний заряд.',
             priority: [
                 'I Мережа (Utility): завжди живимо систему від мережі',
-                'II Батарея (Battery): батарея тримається заряджена на випадок відключення мережі',
-                'III Сонце (Solar): підтримує батарею під час відключення мережі'
+                'II Сонце (Solar): якщо вистачає потужності сонячних панелей - використовуємо їх для живлення системи',
+                'III Батарея (Battery): батарея тримається заряджена на випадок відключення мережі і нестачі сонця'
             ],
             bestFor: 'Регіони з нестабільною мережею та частими перебоями'
         }
@@ -180,7 +180,7 @@ const Dashboard = () => {
                     <div style={mainStatusCard}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                             <div>
-                                <h2 style={{ color: '#94a3b8', margin: '0 0 4px 0', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                <h2 style={{ color: '#94a3b8', margin: '0 0 4px 0', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'left' }}>
                                     Статус системи
                                 </h2>
                                 <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -229,7 +229,7 @@ const Dashboard = () => {
                     {/* МІНІ-ГРАФІК */}
                     <div style={miniChartContainer}>
                         <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '10px', textAlign: 'center', fontWeight: '600' }}>
-                            📊 LIVE ГРАФІК (ОСТАННІ 60 СЕК)
+                            LIVE ГРАФІК (ОСТАННІ 60 СЕК)
                         </div>
                         <div style={{ flexGrow: 1, width: '100%' }}>
                             <ResponsiveContainer width="100%" height="100%">
@@ -297,7 +297,7 @@ const Dashboard = () => {
                 {/* ОСНОВНИЙ ГРАФІК */}
                 <div style={chartCard}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                        <h4 style={{ margin: 0 }}>📊 Аналіз за період</h4>
+                        <h4 style={{ margin: 0 }}>Графік генерації та споживання енергії</h4>
                         <select value={timeRange} onChange={(e) => setTimeRange(Number(e.target.value))} style={selectStyle}>
                             <option value="5">5 хв</option>
                             <option value="10">10 хв</option>

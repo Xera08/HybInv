@@ -47,6 +47,8 @@ const History = () => {
             <option value="15">Останні 15 хв</option>
             <option value="30">Останні 30 хв</option>
             <option value="60">Остання година</option>
+            <option value="120">Останні 2 години</option>
+            <option value="180">Останні 3 години</option>
           </select>
           <button onClick={() => fetchHistory(timeRange)} style={refreshBtn}>Оновити ↻</button>
         </div>
@@ -62,7 +64,7 @@ const History = () => {
                 <tr style={headerStyle}>
                   <th style={thStyle}>ID</th>
                   <th style={thStyle}>Дата та Час</th>
-                  <th style={thStyle}>Напруга (V)</th>
+                  {/*<th style={thStyle}>Напруга (V)</th> */}
                   <th style={thStyle}>Заряд (%)</th>
                   <th style={thStyle}>Сонце (W)</th>
                   <th style={thStyle}>Навантаження (W)</th>
@@ -73,7 +75,7 @@ const History = () => {
                   <tr key={row.id} style={rowStyle}>
                     <td style={tdStyle}>{row.id}</td>
                     <td style={tdStyle}>{new Date(row.timestamp).toLocaleString()}</td>
-                    <td style={tdStyle}>{row.battery_voltage.toFixed(2)} V</td>
+                    {/*<td style={tdStyle}>{row.battery_voltage.toFixed(2)} V</td> */}
                     <td style={{ ...tdStyle, color: getBatteryColor(row.battery_soc), fontWeight: 'bold' }}>
                       {row.battery_soc}%
                     </td>
