@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "6050:6050"
+    environment:
+      - NODE_ENV=production
+      - PORT=6050
+    restart: always
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: always
