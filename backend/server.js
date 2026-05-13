@@ -186,4 +186,4 @@ app.post('/api/settings', express.json(), (req, res) => {
     res.json({ success: true, settings: currentSettings });
 });
 
-server.listen(3000, () => console.log('Сервер: http://localhost:3000'));
+server.listen(6050, () => console.log('Сервер: http://localhost:6050'));

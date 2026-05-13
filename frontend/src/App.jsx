@@ -31,7 +31,7 @@ function App() {
   );
 }
 
-// Стилі для навігації
+// Стилі 
 const navStyle = {
   display: 'flex',
   justifyContent: 'space-between',

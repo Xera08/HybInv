@@ -13,14 +13,14 @@ const Settings = () => {
 
     // Завантажуємо актуальні налаштування при старті
     useEffect(() => {
-        axios.get('http://localhost:3000/api/settings')
+        axios.get('http://localhost:6050/api/settings')
             .then(res => setSettings(res.data))
             .catch(err => console.error(err));
     }, []);
 
     const saveSettings = async (newSettings) => {
         try {
-            const res = await axios.post('http://localhost:3000/api/settings', newSettings);
+            const res = await axios.post('http://localhost:6050/api/settings', newSettings);
             setSettings(res.data.settings);
             setStatus('✅ Налаштування збережено!');
             setTimeout(() => setStatus(''), 3000);
@@ -116,7 +116,7 @@ const Settings = () => {
     );
 };
 
-// --- СТИЛІ ---
+// Стилі
 const settingsCard = { 
     backgroundColor: '#ffffff', 
     padding: '25px', 

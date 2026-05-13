@@ -16,7 +16,7 @@ const History = () => {
 
   const fetchHistory = (mins) => {
     setLoading(true);
-    axios.get(`http://localhost:3000/api/history?minutes=${mins}`)
+    axios.get(`http://localhost:6050/api/history?minutes=${mins}`)
       .then(res => {
         setHistory(res.data);
         setLoading(false);

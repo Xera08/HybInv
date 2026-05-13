@@ -1,18 +1,18 @@
 class ControlLogic {
     constructor() {
-        this.mode = 'SBU'; // Дефолтний режим: SBU (Solar → Battery → Utility)
-        this.batteryCapacityAh = 95; // Твій акумулятор 95Ah
-        this.systemVoltage = 12;     // Припускаємо 12V систему
-        this.inGRIDMode = false;     // Флаг для гістеризації режиму GRID
+        this.mode = 'SBU';
+        this.batteryCapacityAh = 95; 
+        this.systemVoltage = 12;     
+        this.inGRIDMode = false;    
         this.thresholds = {
             critical: 55,     // Червона зона: 0-55%
             warning: 65,      // Помаранчева зона: 55-65%
             caution: 75,      // Жовта зона: 65-75%
-            chargeTarget: 75,  // Цільовий заряд для виходу з GRID режиму
-            lowBattery: 55,    // ВХІД до GRID при <55% (SBU режим)
-            safeToLeaveGRID: 75, // Вихід з GRID при >=75% (SBU режим)
+            chargeTarget: 75,  
+            lowBattery: 55,    
+            safeToLeaveGRID: 75, 
             fullBattery: 100,
-            upsFullCharge: 95  // Цільовий заряд для UPS режиму
+            upsFullCharge: 95 
         };
         // Опис режимів:
         // SUB: Solar → Utility → Battery (Сонце > Мережа > Батарея) - економний режим
@@ -26,8 +26,7 @@ class ControlLogic {
         let status = 'Оптимальна робота';
         let batteryColor = this._getBatteryColor(battery_soc);
         
-        // Розрахунок часу роботи
-        const timeLeftHours = this._calculateTimeLeft(battery_soc, pv_power, load_power, battery_voltage);
+
 
         // Логіка вибору режиму
         if (this.mode === 'SUB') {
@@ -45,7 +44,6 @@ class ControlLogic {
             activeSource: source,
             status: status,
             currentMode: this.mode,
-            timeLeft: timeLeftHours,
             batteryColor: batteryColor,
             timestamp: new Date().toISOString()
         };
@@ -136,7 +134,7 @@ class ControlLogic {
     }
 
     _getStatusUSB(source, battery_soc) {
-        return `Режим UPS: Живлення від мережі`;
+        return `Режим USB (UPS): Живлення від мережі`;
     }
 
     setMode(newMode) {

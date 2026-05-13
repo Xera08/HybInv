@@ -1,4 +1,3 @@
-// services/dataSimulator.js
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./telemetry.sqlite');
 
@@ -41,9 +40,8 @@ const updateBatteryState = (activeSource, pv_power, load_power) => {
 };
 
 const generateStep = () => {
-    // Використовуємо множники для потужності панелей та споживання
-    const basePv = Math.max(0, Math.floor(Math.random() * 500)); // 0-500W базова
-    const baseLoad = Math.floor(Math.random() * 300) + 100;    // 100-400W базове
+    const basePv = Math.max(0, Math.floor(Math.random() * 500)); // 0-500W
+    const baseLoad = Math.floor(Math.random() * 300) + 100;    // 100-400W 
     
     const pv = Math.round(basePv * pvMultiplier);
     const load = Math.round(baseLoad * loadMultiplier);
