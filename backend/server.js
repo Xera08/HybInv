@@ -62,7 +62,7 @@ app.use(cors());
 const server = http.createServer(app);
 
 const io = new Server(server, {
-    cors: { origin: "http://localhost:5173" }
+    cors: { origin: "*" }
 });
 
 // База даних
@@ -186,4 +186,4 @@ app.post('/api/settings', express.json(), (req, res) => {
     res.json({ success: true, settings: currentSettings });
 });
 
-server.listen(6050, () => console.log('Сервер: http://localhost:6050'));
+server.listen(6050, '0.0.0.0', () => console.log('Сервер запущено на порту 6050'));
